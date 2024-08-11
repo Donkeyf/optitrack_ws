@@ -11,7 +11,7 @@ if __name__ == '__main__':
     rospy.loginfo("optitrak data is streaming")
 
     pub = rospy.Publisher("/mavlink/to", Mavlink, queue_size = 10)
-    sub = rospy.Subscriber("/Robot_1/pose", PoseStamped, receive_pose)
+    sub = rospy.Subscriber("/vrpn_client_node/Robot_1/pose", PoseStamped, receive_pose)
 
     #refresh rate at which information is published
     rate = rospy.Rate(15)
