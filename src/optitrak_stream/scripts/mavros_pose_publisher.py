@@ -16,7 +16,7 @@ class PoseSubscriber:
         self.X = data.pose.position.x
         self.Y = data.pose.position.y
         self.Z = data.pose.position.z
-        rospy.loginfo(f"Data received: {self.received_data}")
+        self.Q = data.pose.orientation
 
     def get_data(self):
         return self.received_data
@@ -35,7 +35,7 @@ if __name__ == '__main__':
     while not rospy.is_shutdown():
         #TODO stream optitrak data to RPi
 
-        print(f'x = {sub.X}, y = {sub.Y}, z = {sub.Z}')
+        print(f'x = {sub.X}, y = {sub.Y}, z = {sub.Z}, q = {sub.Q}')
 
         msg = Mavlink()
         #TODO fill in required mavlink msg data
