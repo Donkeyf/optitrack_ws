@@ -3,14 +3,11 @@ import rospy
 from mavros_msgs.msg import Mavlink
 from geometry_msgs.msg import PoseStamped
 
-def receive_pose(pose):
-    print(pose)
-
 class OptitrackSubscriber:
     def __init__(self):
         self.received_data = None  # Variable to store the received data
         # Subscriber to a topic
-        self.subscriber = rospy.Subscriber("/vrpn_client_node/Robot_1/pose", PoseStamped, receive_pose)
+        self.subscriber = rospy.Subscriber("/vrpn_client_node/Robot_1/pose", PoseStamped, self.callback)
     
     def callback(self, data):
         # Store the data in the variable
