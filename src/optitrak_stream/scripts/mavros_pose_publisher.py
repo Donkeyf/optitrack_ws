@@ -29,7 +29,7 @@ class PoseSubscriber:
     
 class PosePublisher:
     def __init__(self):
-        mocap_publisher = rospy.Publisher('/mavros/mocap/pose', PoseStamped, queue_size=10)
+        self.mocap_publisher = rospy.Publisher('/mavros/mocap/pose', PoseStamped, queue_size=10)
         #refresh rate at which information is published
         
 
