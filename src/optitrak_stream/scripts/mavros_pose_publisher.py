@@ -35,7 +35,8 @@ class PosePublisher:
 
     def send_att_pos_mocap(self,pose_stamped):
         # publish the PoseStamped message
-        self.mocap_publisher.publish(pose_stamped)
+        if (pose_stamped != None):
+            self.mocap_publisher.publish(pose_stamped)
 
 if __name__ == '__main__':
     rospy.init_node("mavros_pose_publisher")
