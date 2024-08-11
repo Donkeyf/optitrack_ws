@@ -27,9 +27,9 @@ if __name__ == '__main__':
     pub = rospy.Publisher("/mavlink/to", Mavlink, queue_size = 10)
     opt_sub = OptitrackSubscriber()
     
-    X = opt_sub.get_data.pose.position.x
-    Y = opt_sub.get_data.pose.position.y
-    Z = opt_sub.get_data.pose.position.z
+    X = opt_sub.get_data().pose.position.x
+    Y = opt_sub.get_data().pose.position.y
+    Z = opt_sub.get_data().pose.position.z
 
     #refresh rate at which information is published
     rate = rospy.Rate(15)
