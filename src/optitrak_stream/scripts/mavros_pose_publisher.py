@@ -8,6 +8,7 @@ class PoseSubscriber:
         self.X = None  # Variable to store the received data
         self.Y = None  # Variable to store the received data
         self.Z = None  # Variable to store the received data
+        self.Q = None
         # Subscriber to a topic
         self.subscriber = rospy.Subscriber("/vrpn_client_node/Robot_1/pose", PoseStamped, self.callback)
     
