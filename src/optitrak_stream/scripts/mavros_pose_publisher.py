@@ -5,7 +5,7 @@ from geometry_msgs.msg import PoseStamped
 
 class PoseSubscriber:
     def __init__(self):
-        self.pose = None
+        self.pose_stamped = None
         self.X = None  # Variable to store the received data
         self.Y = None  # Variable to store the received data
         self.Z = None  # Variable to store the received data
