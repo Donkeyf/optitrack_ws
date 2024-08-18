@@ -16,7 +16,7 @@ class PoseSubscriber:
     def callback(self, data):
         # Store the data in the variable
         self.pose_stamped = data
-        self.X = data.pose.position.x
+        self.X = data.pose.position.y # Swapping because Ardupilot X is positive North, but Optitrack y is positive North
         self.Y = data.pose.position.y
         self.Z = data.pose.position.z
         self.Q = [data.pose.orientation.x]
