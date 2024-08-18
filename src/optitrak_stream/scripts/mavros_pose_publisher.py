@@ -6,23 +6,16 @@ from geometry_msgs.msg import PoseStamped
 class PoseSubscriber:
     def __init__(self):
         self.pose_stamped = None
-        self.X = None  # Variable to store the received data
-        self.Y = None  # Variable to store the received data
-        self.Z = None  # Variable to store the received data
-        self.Q = []
         # Subscriber to a topic
         self.subscriber = rospy.Subscriber("/vrpn_client_node/FASTR/pose", PoseStamped, self.callback)
     
     def callback(self, data):
         # Store the data in the variable
         self.pose_stamped = data
-        self.X = data.pose.position.y # Swapping because Ardupilot X is positive North, but Optitrack y is positive North
-        self.Y = data.pose.position.x
-        self.Z = data.pose.position.z
-        self.Q = [data.pose.orientation.x]
-        self.Q.append(data.pose.orientation.y)
-        self.Q.append(data.pose.orientation.z)
-        self.Q.append(data.pose.orientation.w)
+        temp = data.pose.position.x
+        # Swapping because Ardupilot X is positive North, but Optitrack y is positive North
+        self.pose_stamped.pose.position.x = -1.0 * data.pose.position.y # x is E
+        self.pose_stamped.pose.position.y = temp # y is N
 
     def get_data(self):
         return self.received_data
@@ -50,7 +43,8 @@ if __name__ == '__main__':
     while not rospy.is_shutdown():
         #TODO stream optitrak data to RPi
 
-        print(f'x = {sub.X}, y = {sub.Y}, z = {sub.Z}, q = {sub.Q}')
+        if sub.pose_stamped != None:
+            print(f'x = {sub.pose_stamped.pose.position.x:.3f}, y = {sub.pose_stamped.pose.position.y:.3f}, z = {sub.pose_stamped.pose.position.z:.3f}')
 
         pub.send_att_pos_mocap(sub.pose_stamped)
 
