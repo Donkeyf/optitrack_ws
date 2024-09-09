@@ -13,7 +13,7 @@
     </node>
 
     <!-- Node 2 -->
-    <node name="node2" pkg="your_package" type="node2_executable" output="screen">
+    <node name="translator" pkg="mavros" type="mavros_publisher_node" output="screen">
         <!-- No arguments are passed to this node -->
     </node>
 
