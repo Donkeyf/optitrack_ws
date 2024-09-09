@@ -1,0 +1,25 @@
+<launch>
+    <!-- Define arguments for the IP address and port -->
+
+    <arg name="node1_port" default="3883"/>
+    <arg name="node1_ip" default="192.168.1.100"/>
+    <arg name="node3_port" default="ttyserial0"/>
+
+    <!-- Node 1 -->
+    <node name="vrpn_client" pkg="vrpn_client_ros" type="vrpn_client_node" output="screen">
+        <!-- Pass arguments to the node executable -->
+        <param name="port" value="$(arg node1_port)"/>
+        <param name="ip_address" value="$(arg node1_ip)"/>
+    </node>
+
+    <!-- Node 2 -->
+    <node name="node2" pkg="your_package" type="node2_executable" output="screen">
+        <!-- No arguments are passed to this node -->
+    </node>
+
+    <!-- Node 3 -->
+    <node name="mavros" pkg="mavros" type="mavros_node" output="screen">
+        <!-- Pass arguments to the node executable -->
+        <param name="port" value="$(arg node3_port)"/>
+    </node>
+</launch>
