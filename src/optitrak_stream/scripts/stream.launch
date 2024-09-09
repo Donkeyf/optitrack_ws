@@ -20,6 +20,6 @@
     <!-- Node 3 -->
     <node name="mavros" pkg="mavros" type="mavros_node" output="screen">
         <!-- Pass arguments to the node executable -->
-        <param name="port" value="$(arg node3_port)"/>
+        <param name="fcu_url" value="$(arg node3_port)"/>
     </node>
 </launch>
