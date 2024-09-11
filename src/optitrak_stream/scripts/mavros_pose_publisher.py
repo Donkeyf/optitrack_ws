@@ -10,13 +10,16 @@ class PoseSubscriber:
         self.subscriber = rospy.Subscriber("/vrpn_client_node/FASTR/pose", PoseStamped, self.callback)
     
     def callback(self, data):
+        if self.pose_stamped == None:
+            self.pose_stamped = data
         # Store the data in the variable
-        self.pose_stamped = data
         temp = data.pose.position.x
         # Swapping because Ardupilot X is positive North, but Optitrack y is positive North
-        self.pose_stamped.pose.position.x = -1.0 * data.pose.position.y # x is E
-        self.pose_stamped.pose.position.y = temp # y is N
-
+        self.pose_stamped.pose.position.x = data.pose.position.y 
+        self.pose_stamped.pose.position.y = -1.0 * temp
+        self.pose_stamped.pose.position.z = data.pose.position.z
+        self.pose_stamped.pose.orientation = data.pose.orientation
+    
     def get_data(self):
         return self.received_data
     
