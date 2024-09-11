@@ -32,7 +32,7 @@ class WaypointPublisher:
     def send_waypoint(self,waypoint):
         # publish the PoseStamped message
         if (waypoint != None):
-            self.mocap_publisher.publish(waypoint)
+            self.waypoint_publisher.publish(waypoint)
 
 
 
@@ -45,8 +45,11 @@ if __name__ == "__main__":
     pub = WaypointPublisher('mavros/setpoint_position/global')      # create publisher
     
     while not rospy.is_shutdown():
-        # use gate pose (subscribed) to find intermediate waypoint
-        waypoint_global = sub.position + 1.5 * sub.rotate_quaternion(np.array([0,1,0]), sub.quaternion)
-        # publish the waypoint
+        # use gate pose (subscribed) to find intermediate waypoint, and actual waypoint
+        int_waypoint_global = sub.position + 1.5 * sub.rotate_quaternion(np.array([0,1,0]), sub.quaternion)
+        waypoint_global = sub.position
+
+        # publish the waypoints
+        pub.send_waypoint(int_waypoint_global)
         pub.send_waypoint(waypoint_global)
 
