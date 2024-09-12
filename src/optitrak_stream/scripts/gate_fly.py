@@ -5,13 +5,16 @@ from geometry_msgs.msg import PoseStamped
 from mavros_msgs.srv import CommandBool
 
 def arm(do_arm):
+    resp = False
     try:
         arming = rospy.ServiceProxy("mavros/cmd/arming", CommandBool)
         resp = arming(do_arm)
         rospy.loginfo(resp)
+        
 
     except rospy.ServiceException as e:
         rospy.logwarn(e)
+    return resp
 
 class PoseSubscriber:
     def __init__(self):
@@ -66,7 +69,9 @@ if __name__ == '__main__':
         # Arm if not armed
         if not armed:
             rospy.wait_for_service("mavros/cmd/arming")
-            arm(True)
+            resp = arm(True)
+        
+        if resp:
             armed = True
 
         # TODO for SLAM later
