@@ -4,8 +4,8 @@ from mavros_msgs.srv import SetMode
 
 def set_mode(mode):
     try:
-        set_mode = rospy.ServiceProxy("mavros/set_mode", SetMode)
-        resp = set_mode(mode)
+        setmode = rospy.ServiceProxy("mavros/set_mode", SetMode)
+        resp = setmode(mode,None)
         rospy.loginfo(resp)
     except rospy.ServiceException as e:
         rospy.logwarn(e)

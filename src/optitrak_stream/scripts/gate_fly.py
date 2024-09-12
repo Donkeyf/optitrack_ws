@@ -65,14 +65,26 @@ if __name__ == '__main__':
             print(f'x = {sub.pose_stamped.pose.position.x:.3f}, y = {sub.pose_stamped.pose.position.y:.3f}, z = {sub.pose_stamped.pose.position.z:.3f}')
 
         pub.send_att_pos_mocap(sub.pose_stamped)
+<<<<<<< HEAD
+=======
 
         # Arm if not armed
         if not armed:
             rospy.wait_for_service("/mavros/cmd/arming")
             resp = arm(True)
+>>>>>>> de3290bd28b5d9435d9f25b66c35d45494006246
         
-        if resp:
-            armed = True
+        # Arm if not armed
+        rospy.wait_for_service("/mavros/cmd/arming")
+        arm(True)
+        #print(f'armed = {armed}')
+        #if not armed:
+        #    rospy.wait_for_service("/mavros/cmd/arming")
+        #    resp = arm(True)
+        #    print(resp)
+        
+        #if resp:
+        #    armed = True
 
         # TODO for SLAM later
         # msg = Mavlink()
