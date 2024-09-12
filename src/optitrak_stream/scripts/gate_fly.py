@@ -7,7 +7,7 @@ from mavros_msgs.srv import CommandBool
 def arm(do_arm):
     resp = False
     try:
-        arming = rospy.ServiceProxy("mavros/cmd/arming", CommandBool)
+        arming = rospy.ServiceProxy("/mavros/cmd/arming", CommandBool)
         resp = arming(do_arm)
         rospy.loginfo(resp)
         
@@ -68,7 +68,7 @@ if __name__ == '__main__':
 
         # Arm if not armed
         if not armed:
-            rospy.wait_for_service("mavros/cmd/arming")
+            rospy.wait_for_service("/mavros/cmd/arming")
             resp = arm(True)
         
         if resp:
