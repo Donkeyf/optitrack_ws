@@ -16,7 +16,8 @@ def arm(do_arm):
 def set_home_position(lat, lon, alt):
     current_gps = False 
     yaw = 0
-    #Set lat, lon, alt as 0,0,0 for reference position. Thus, home is set to wherever drone is located upon running this node - and this is 0,0,0 in the global frame
+    #Set lat, lon, alt as 0,0,0 for reference position. Thus, home is set to wherever 
+    # drone is located upon running this node - and this is 0,0,0 in the global frame
     latitude = 0 
     longitude = 0
     altitude = 0
