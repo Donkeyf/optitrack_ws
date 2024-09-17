@@ -1,6 +1,6 @@
 import rospy
 import time
-from mavros_msgs.srv import CommandBool, CommandHome, CommandTOL, SetMode
+from mavros_msgs.srv import CommandBool, CommandHome, CommandTOL, SetMode, CommandLong
 
 def arm(do_arm):
     
@@ -31,6 +31,7 @@ def set_home_position(lat, lon, alt):
     except rospy.ServiceException as e:
         rospy.logerr("Service call failed: %s" % e)
 
+
 def set_mode(base_mode, custom_mode=''):
     
     try:
@@ -60,6 +61,22 @@ def takeoff(lat,long,alt):
     except rospy.ServiceException as e:
         rospy.logwarn(e)
 
+def takeoff_local(x, y, z):
+    min_pitch = 0
+    yaw = 0
+    ascend = 0.2
+    cmd = 24
+
+    try:
+        takingoff = rospy.ServiceProxy("/mavros/cmd/command", CommandLong)
+        #comand, confirmation, param1(pitch), param(empty), param3(ascend), param4(yaw), param5(y), param6(x), param7() 
+        response = takingoff(cmd, 10, min_pitch, None, ascend, yaw, y, x, z)
+
+        rospy.loginfo(response)
+
+    except rospy.ServiceException as e:
+        rospy.logwarn(e)
+
 
 if __name__ == '__main__':
     rospy.init_node("arm_demo")
@@ -79,7 +96,7 @@ if __name__ == '__main__':
     
     time.sleep(5)
 
-    rospy.wait_for_service("/mavros/cmd/takeoff")
-    takeoff(0,0,1)
+    rospy.wait_for_service("/mavros/cmd/command")
+    takeoff_local(0,0,1)
 
     # rospy.spin()
