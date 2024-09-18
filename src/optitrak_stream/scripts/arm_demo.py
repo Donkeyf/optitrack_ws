@@ -97,6 +97,6 @@ if __name__ == '__main__':
     time.sleep(5)
 
     rospy.wait_for_service("/mavros/cmd/command")
-    takeoff_local(0,0,1)
+    takeoff_local(-5.4,0.18,-2)
 
     # rospy.spin()
